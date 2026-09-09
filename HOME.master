@@ -1,0 +1,118 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="HOME.master.cs" Inherits="HOME" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>CIPLTMS</title>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+
+    <link href="Styles/MasterPage.css" rel="stylesheet" />
+
+    <script>
+        window.onload = function () {
+            var skipLink = document.getElementById('ctl00_Menu1_SkipLink');
+            if (skipLink) {
+                skipLink.remove();
+            }
+        };
+</script>
+
+
+</head>
+<body>
+
+    <form id="form1" runat="server">
+
+        <div class="master-layout">
+
+            <!-- SIDEBAR -->
+            <div class="sidebar">
+
+                <div class="sidebar-menu">
+                    <asp:Menu
+                        ID="Menu1"
+                        runat="server"
+                        Orientation="Vertical"
+                        RenderingMode="List"
+                        StaticDisplayLevels="1"
+                        MaximumDynamicDisplayLevels="10">
+
+                        
+                        <StaticMenuStyle BackColor="#000000" />
+
+                        <StaticMenuItemStyle
+                            ForeColor="White"
+                            HorizontalPadding="15px"
+                            VerticalPadding="10px" />
+
+                        <StaticHoverStyle
+                            BackColor="#222222"
+                            ForeColor="White" />
+
+                        
+                        <DynamicMenuStyle
+                            BackColor="#000000" />
+
+                        <DynamicMenuItemStyle
+                            BackColor="#000000"
+                            ForeColor="White"
+                            HorizontalPadding="15px"
+                            VerticalPadding="10px" />
+
+                        <DynamicHoverStyle
+                            BackColor="#222222"
+                            ForeColor="White" />
+
+                    </asp:Menu>
+                </div>
+
+                <div class="sidebar-footer">
+
+                    <div class="employee-header">
+                        <asp:Label ID="lblEmployeeName"
+                            runat="server"
+                            CssClass="employee-name" />
+
+                        <a href="/Login.aspx">
+                            <img src="/images/logout.png"
+                                alt="Logout"
+                                class="logout-icon" />
+                        </a>
+                    </div>
+
+                    <div class="info-row">
+                        Login Time :
+            <asp:Label ID="lblLoginTime"
+                runat="server" />
+                    </div>
+
+                    <div class="info-row">
+                        Punch In :
+            <asp:Label ID="lblPunchIn"
+                runat="server" />
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- MAIN CONTENT -->
+            <div class="content-area">
+
+                <asp:ContentPlaceHolder
+                    ID="ContentPlaceHolder2"
+                    runat="server">
+                </asp:ContentPlaceHolder>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</body>
+</html>
