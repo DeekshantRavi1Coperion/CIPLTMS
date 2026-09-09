@@ -7,10 +7,13 @@ using System.Net.Mail;
 using System.Text;
 using System.Web;
 using BAL;
-using System.Web.UI;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
+//using System.Web.UI;
+//using iTextSharp.text;
+//using iTextSharp.text.pdf;
+//using iTextSharp.tool.xml;
 
 
 public class FCVendorPaymentSendMail
