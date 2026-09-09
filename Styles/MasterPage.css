@@ -1,0 +1,259 @@
+﻿/* ===========================
+   RESET
+=========================== */
+
+html,
+body,
+form {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ===========================
+   MAIN LAYOUT
+=========================== */
+
+.master-layout {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ===========================
+   SIDEBAR
+=========================== */
+
+/*.sidebar {
+    width: 280px;
+    min-width: 280px;
+    background-color: black;*/ /*  #E3EAEB;*/
+/*border-right: 1px solid #D0D7D8;
+}*/
+
+
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: black; /*#E3EAEB;*/
+    border-right: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom:50px;
+}
+
+.sidebar-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* ===========================
+   MENU
+=========================== */
+
+/*.sidebar .aspNet-Menu {
+    width: 100%;
+}*/
+
+/*.sidebar-menu {
+    flex: 1;
+    overflow-y: auto;
+}*/
+.sidebar-menu {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+/*.sidebar-menu {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1000;
+}*/
+
+
+.sidebar-footer {
+    padding: 12px;
+    border-top: 1px solid #cfcfcf;
+    /*background: #dbe4e5;*/
+    background: black;
+    color: white;
+}
+
+/* ===========================
+   USER INFO
+=========================== */
+
+
+.employee-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.employee-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.logout-icon {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
+
+
+.info-row {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+
+.user-info {
+    margin-top: auto;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #C7D0D1;
+}
+/*
+.employee-name {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 14px;
+}*/
+
+/*.info-row {
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #333;
+}*/
+
+.logout-container {
+    margin-top: 15px;
+}
+
+    .logout-container a {
+        text-decoration: none;
+    }
+
+/*.logout-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}*/
+
+.logout-icon:hover {
+    transform: scale(1.1);
+}
+
+
+a[id$="_SkipLink"] {
+    display: none !important;
+}
+
+
+
+
+
+/* Submenu container */
+ul.dynamic,
+.AspNet-Menu ul {
+    background: #000 !important;
+}
+
+    /* Submenu items */
+    .AspNet-Menu ul li a,
+    .AspNet-Menu ul li {
+        background: #000 !important;
+        color: #fff !important;
+    }
+
+        /* Hover */
+        .AspNet-Menu ul li a:hover {
+            background: #222 !important;
+            color: #fff !important;
+        }
+
+
+
+
+
+
+/* ===========================
+   SCROLL BAR
+=========================== */
+
+.sidebar-menu::-webkit-scrollbar {
+    width: 10px;
+}
+
+.sidebar-menu::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.15);
+    border-radius: 50px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+    .sidebar-menu::-webkit-scrollbar-thumb:hover {
+        background: rgba(255,255,255,0.3);
+        background-clip: padding-box;
+    }
+
+
+
+
+
+
+
+/* ===========================
+   CONTENT AREA
+=========================== */
+
+.content-area {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x:hidden;
+    background-color: #F5F7FA;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* ===========================
+   TABLES
+=========================== */
+
+table {
+    max-width: 100%;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media screen and (max-width: 768px) {
+
+    .sidebar {
+        width: 220px;
+        min-width: 220px;
+    }
+
+    .content-area {
+        padding: 10px;
+    }
+}
