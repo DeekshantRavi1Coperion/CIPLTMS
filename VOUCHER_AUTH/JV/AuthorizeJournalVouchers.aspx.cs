@@ -1199,7 +1199,7 @@ public partial class VOUCHER_AUTH_JV_AuthorizeJournalVouchers : System.Web.UI.Pa
         }
         else
         {
-            ReAuthorize(Pid);
+            ReAuthorize(Pid, (int)VoucherStatusTypes.EnumVoucherTypes.JV);
         }
     }
 
@@ -2164,12 +2164,12 @@ public partial class VOUCHER_AUTH_JV_AuthorizeJournalVouchers : System.Web.UI.Pa
 
     }
 
-    private void ReAuthorize(int Pid)
+    private void ReAuthorize(int Pid,int voucherTypeId)
     {
         int val = objVouchersAuthorization.ReauthorizeVoucher
             (
                     Pid
-                ,   (int)VoucherStatusTypes.EnumVoucherTypes.JV
+                , voucherTypeId
                 ,   RemarksToAS
                 ,   FileNameToAS1
                 ,   FileBytesToAS1

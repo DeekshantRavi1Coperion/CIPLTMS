@@ -1673,28 +1673,95 @@ public partial class VOUCHER_AUTH_SOV_AuthorizeSaleOrderVouchers : System.Web.UI
     }
 
 
+    //protected void btnAuthorize_Click(object sender, EventArgs e)
+    //{
+    //    Authorize(Pid
+    //               , VoucherNoToAS
+    //               , VoucherDateToAS
+    //               , YoNoToAS
+    //               , YoDateToAS
+    //               , ClassToAS
+    //               , CustomerCodeToAS
+    //               , CustomerNameToAS
+    //               , CurrencyBasicToAS
+    //               , CurrencyValToAS
+    //               , CurrencyDescToAS
+    //               , CurrencyRateToAS
+    //               , INRBasicAmountToAS
+    //               , INROtherAmountToAS
+    //               , FCBasicAmountToAS
+    //               , FCOtherAmountToAS
+    //               , UnitIdToAS
+    //               , VoucherCreatedByToAS
+    //               , ActIdToAS
+    //               );
+    //}
+
     protected void btnAuthorize_Click(object sender, EventArgs e)
     {
-        Authorize(Pid
-                   , VoucherNoToAS
-                   , VoucherDateToAS
-                   , YoNoToAS
-                   , YoDateToAS
-                   , ClassToAS
-                   , CustomerCodeToAS
-                   , CustomerNameToAS
-                   , CurrencyBasicToAS
-                   , CurrencyValToAS
-                   , CurrencyDescToAS
-                   , CurrencyRateToAS
-                   , INRBasicAmountToAS
-                   , INROtherAmountToAS
-                   , FCBasicAmountToAS
-                   , FCOtherAmountToAS
-                   , UnitIdToAS
-                   , VoucherCreatedByToAS
-                   , ActIdToAS
-                   );
+        if (Convert.ToInt32(ViewState["StatusID"]) == (int)VoucherStatusTypes.EnumStatus.OPEN)
+        {
+            Authorize(Pid
+                       , VoucherNoToAS
+                       , VoucherDateToAS
+                       , YoNoToAS
+                       , YoDateToAS
+                       , ClassToAS
+                       , CustomerCodeToAS
+                       , CustomerNameToAS
+                       , CurrencyBasicToAS
+                       , CurrencyValToAS
+                       , CurrencyDescToAS
+                       , CurrencyRateToAS
+                       , INRBasicAmountToAS
+                       , INROtherAmountToAS
+                       , FCBasicAmountToAS
+                       , FCOtherAmountToAS
+                       , UnitIdToAS
+                       , VoucherCreatedByToAS
+                       , ActIdToAS
+                       );
+        }
+        else
+        {
+            ReAuthorize(Pid, (int)VoucherStatusTypes.EnumVoucherTypes.SOV);
+        }
+    }
+
+    private void ReAuthorize(int Pid, int voucherTypeId)
+    {
+        int val = objVouchersAuthorization.ReauthorizeVoucher
+            (
+                    Pid
+                , voucherTypeId
+                , RemarksToAS
+                , FileNameToAS1
+                , FileBytesToAS1
+
+                , FileNameToAS2
+                , FileBytesToAS2
+
+                , FileNameToAS3
+                , FileBytesToAS3
+
+                , FileNameToAS4
+                , FileBytesToAS4
+
+                , FileNameToAS5
+                , FileBytesToAS5
+                , CreatedById
+            );
+
+        if (val > 0)
+        {
+            SuccessMessage("Voucher Number: " + VoucherNoToAS + " reauthorized successfully!");
+            GetVouchersList();
+        }
+        else
+        {
+            ExceptionMessage("Please try again.");
+            return;
+        }
     }
 
     protected void btnBulkAuthorize_Click(object sender, EventArgs e)
@@ -1888,7 +1955,7 @@ public partial class VOUCHER_AUTH_SOV_AuthorizeSaleOrderVouchers : System.Web.UI
                             Session["dtfiles"] = null;
                         }
                     }
-    
+
                 }
 
                 gvVouchersList.DataSource = dsVouchersList.Tables[0];
@@ -2036,12 +2103,12 @@ public partial class VOUCHER_AUTH_SOV_AuthorizeSaleOrderVouchers : System.Web.UI
             ExceptionMessage(ex.ToString());
         }
     }
-    
+
     private void BindAttachedDocs(int PId)
     {
         try
         {
-            _dsAttachedDocs = objVouchersAuthorization.GetVoucherDOCS(PId, (int)VoucherStatusTypes.EnumVoucherTypes.SOV,"");
+            _dsAttachedDocs = objVouchersAuthorization.GetVoucherDOCS(PId, (int)VoucherStatusTypes.EnumVoucherTypes.SOV, "");
 
             if (_dsAttachedDocs.Tables.Count > 0)
             {
@@ -2055,7 +2122,7 @@ public partial class VOUCHER_AUTH_SOV_AuthorizeSaleOrderVouchers : System.Web.UI
                     gvAttachedFiles.DataSource = null;
                     gvAttachedFiles.DataBind();
                 }
-               
+
             }
 
             if (_dsAttachedDocs.Tables.Count > 0 && _dsAttachedDocs.Tables[0].Rows.Count > 0)
@@ -2693,7 +2760,7 @@ public partial class VOUCHER_AUTH_SOV_AuthorizeSaleOrderVouchers : System.Web.UI
                     Label lblVoucherDate = (Label)gr.FindControl("lblVoucherDate");
                     Label lblCreatedBy = (Label)gr.FindControl("lblCreatedBy");
                     Label lblUnitId = (Label)gr.FindControl("lblUnitId");
-                    
+
                     Label lblYoNo = (Label)gr.FindControl("lblYoNo");
                     Label lblYoDate = (Label)gr.FindControl("lblYoDate");
                     Label lblClass = (Label)gr.FindControl("lblClass");
@@ -2786,7 +2853,7 @@ public partial class VOUCHER_AUTH_SOV_AuthorizeSaleOrderVouchers : System.Web.UI
         }
 
     }
-  
+
     private void SuccessMessage(string message)
     {
         pnlMsg.Visible = true;

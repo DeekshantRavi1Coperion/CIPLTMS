@@ -1223,48 +1223,120 @@ public partial class VOUCHER_AUTH_MRN_AuthorizeMRNVouchers : System.Web.UI.Page
         }
     }
 
+    //protected void btnAuthorize_Click(object sender, EventArgs e)
+    //{
+    //    Authorize(Pid
+    //               , VoucherNoToAS
+    //               , VoucherDateToAS
+
+    //               , PurchaseOrderDateToAS
+    //               , VendorCodeToAS
+    //               , VendorNameToAS
+    //               , DOCClassToAS
+    //               , NetAmountToAS
+
+    //               , CurrencyDescToAS
+    //               , CurrencyRateToAS
+
+    //               , INRBasicAmountToAS
+    //               , INROtherAmountToAS
+    //               , FCBasicAmountToAS
+    //               , FCOtherAmountToAS
+
+    //               , GateEntryNoToAS
+    //               , GateEntryDateToAS
+
+    //               , UnitIdToAS
+    //               , VoucherCreatedByToAS
+    //               //, VoucherTypeIdToAS
+    //               );
+
+
+    //    //if (Convert.ToInt32(hdAttachment1ConfirmValue.Value) > 0)
+    //    //{
+
+
+
+    //    //}
+    //    //else
+    //    //{
+
+    //    //    ExceptionMessage("Please select attachment and try again..");
+    //    //    return;
+    //    //}
+    //}
+
+
     protected void btnAuthorize_Click(object sender, EventArgs e)
     {
-        Authorize(Pid
+        if (Convert.ToInt32(ViewState["StatusID"]) == (int)VoucherStatusTypes.EnumStatus.OPEN)
+        {
+            Authorize(Pid
                    , VoucherNoToAS
                    , VoucherDateToAS
+                    , PurchaseOrderDateToAS
+                    , VendorCodeToAS
+                    , VendorNameToAS
+                    , DOCClassToAS
+                    , NetAmountToAS
 
-                   , PurchaseOrderDateToAS
-                   , VendorCodeToAS
-                   , VendorNameToAS
-                   , DOCClassToAS
-                   , NetAmountToAS
+                    , CurrencyDescToAS
+                    , CurrencyRateToAS
 
-                   , CurrencyDescToAS
-                   , CurrencyRateToAS
+                    , INRBasicAmountToAS
+                    , INROtherAmountToAS
+                    , FCBasicAmountToAS
+                    , FCOtherAmountToAS
 
-                   , INRBasicAmountToAS
-                   , INROtherAmountToAS
-                   , FCBasicAmountToAS
-                   , FCOtherAmountToAS
+                    , GateEntryNoToAS
+                    , GateEntryDateToAS
 
-                   , GateEntryNoToAS
-                   , GateEntryDateToAS
-
-                   , UnitIdToAS
-                   , VoucherCreatedByToAS
-                   //, VoucherTypeIdToAS
-                   );
-
-
-        //if (Convert.ToInt32(hdAttachment1ConfirmValue.Value) > 0)
-        //{
-
-
-
-        //}
-        //else
-        //{
-
-        //    ExceptionMessage("Please select attachment and try again..");
-        //    return;
-        //}
+                    , UnitIdToAS
+                    , VoucherCreatedByToAS
+                    ); ;
+        }
+        else
+        {
+            ReAuthorize(Pid, (int)VoucherStatusTypes.EnumVoucherTypes.MRN);
+        }
     }
+
+    private void ReAuthorize(int Pid, int voucherTypeId)
+    {
+        int val = objVouchersAuthorization.ReauthorizeVoucher
+            (
+                    Pid
+                , voucherTypeId
+                , RemarksToAS
+                , FileNameToAS1
+                , FileBytesToAS1
+
+                , FileNameToAS2
+                , FileBytesToAS2
+
+                , FileNameToAS3
+                , FileBytesToAS3
+
+                , FileNameToAS4
+                , FileBytesToAS4
+
+                , FileNameToAS5
+                , FileBytesToAS5
+                , CreatedById
+            );
+
+        if (val > 0)
+        {
+            SuccessMessage("Voucher Number: " + VoucherNoToAS + " reauthorized successfully!");
+            GetVouchersList();
+        }
+        else
+        {
+            ExceptionMessage("Please try again.");
+            return;
+        }
+    }
+
 
 
     protected void btnBulkAuthorize_Click(object sender, EventArgs e)
@@ -1451,7 +1523,7 @@ public partial class VOUCHER_AUTH_MRN_AuthorizeMRNVouchers : System.Web.UI.Page
                         {
                             Session["dtfiles"] = null;
                         }
-                    } 
+                    }
                 }
 
                 gvVouchersList.DataSource = dsVouchersList.Tables[0];
@@ -1602,7 +1674,7 @@ public partial class VOUCHER_AUTH_MRN_AuthorizeMRNVouchers : System.Web.UI.Page
     {
         try
         {
-            _dsAttachedDocs = objVouchersAuthorization.GetVoucherDOCS(PId, (int)VoucherStatusTypes.EnumVoucherTypes.MRN,"");
+            _dsAttachedDocs = objVouchersAuthorization.GetVoucherDOCS(PId, (int)VoucherStatusTypes.EnumVoucherTypes.MRN, "");
 
             if (_dsAttachedDocs.Tables.Count > 0 && _dsAttachedDocs.Tables[0].Rows.Count > 0)
             {
